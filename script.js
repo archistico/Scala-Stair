@@ -45,7 +45,7 @@ makeStairButton.onclick = function (event) {
     // Disegna scala
     let drawTop = SVG('#drawing_top').size('100%', '100%');
     //draw.size();
-    drawTop.viewbox(0, 0, 300, 200);
+    drawTop.viewbox(0, 0, 550, 200);
     drawTop.clear();
 
     let drawPaddingX = 10;
