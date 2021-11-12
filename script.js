@@ -37,7 +37,7 @@ makeStairButton.onclick = function (event) {
         sviluppo = 116.0;
         dislivello = 85.0;
         avanzamentoPedata = 2;
-        spessoreAlzata = 2;
+        spessoreAlzata = 1;
         spessorePedata = 3;
     }   
 

@@ -83,15 +83,6 @@ function compareValues(key, order='asc') {
 
 let listaOrdinata = listaScale.sort(compareValues('dislivello', 'asc'));
 
-// function formatNumber(num) {
-//   return num.toString().replace('.', ',');
-// }
-
-// let dati = 'dislivello; alzata; pedata; numero alzate; rapporto; sviluppo\n';
-// listaOrdinata.forEach(function(s) { 
-//     dati += formatNumber(s.dislivello)+"; "+formatNumber(s.alzata)+"; "+formatNumber(s.pedata)+"; "+formatNumber(s.numeroAlzate)+"; "+formatNumber(s.getRapporto())+"; "+formatNumber(s.getSviluppo())+"\n";  
-// });
-
 export function getDati() {
     return listaOrdinata;
 }
