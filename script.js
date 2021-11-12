@@ -4,14 +4,14 @@ let makeStairButton = document.getElementById('makeStairButton');
 let stairSelect = document.getElementById("stairSelect");
 
 makeStairButton.onclick = function (event) {
-    console.log("ok");
+    console.log(stairSelect.selectedIndex);
 }
 
 let dati = getDati();
-console.log(dati);
 
-// getDati().forEach(element => {
-//     let option = document.createElement("option");
-//     option.text = element;
-//     stairSelect.add(option);
-// });
+getDati().forEach((scala, index) => {
+    let option = document.createElement("option");
+    option.text = "Dislivello: " + scala.dislivello.toFixed(1) + " cm | Alzata: " + scala.alzata.toFixed(1) + " cm | Pedata: " + scala.pedata.toFixed(1) + " cm | Numero alzate: " + scala.numeroAlzate + " | Sviluppo: " + scala.sviluppo.toFixed(2) + " cm";
+    option.value = index
+    stairSelect.add(option);
+});
