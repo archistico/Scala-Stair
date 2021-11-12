@@ -3,8 +3,8 @@ import { getDati } from './scala.js';
 // Dati impostati ora qua ma poi verranno messi nel form
 let avanzamentoPedata = 2;
 let larghezzaScala = 100;
-let spessoreRivestimento = 2;
-let spessoreBattiscopa = 10;
+let spessoreAlzata = 2;
+let spessorePedata = 3;
 
 let makeStairButton = document.getElementById('makeStairButton');
 let stairSelect = document.getElementById("stairSelect");
@@ -37,6 +37,8 @@ makeStairButton.onclick = function (event) {
         sviluppo = 54.8;
         dislivello = 53.4;
         avanzamentoPedata = 2;
+        spessoreAlzata = 2;
+        spessorePedata = 3;
     }   
 
 
