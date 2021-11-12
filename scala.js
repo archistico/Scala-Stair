@@ -93,10 +93,6 @@ listaOrdinata.forEach(function(s) {
     dati += formatNumber(s.dislivello)+"; "+formatNumber(s.alzata)+"; "+formatNumber(s.pedata)+"; "+formatNumber(s.numeroAlzate)+"; "+formatNumber(s.getRapporto())+"; "+formatNumber(s.getSviluppo())+"\n";  
 });
 
-
-let fs = require('fs');
-fs.writeFile('scale.csv', dati, function (err) {
-  if (err) throw err;
-  console.log('File salvato!');
-}); 
-
+export function getDati() {
+    return listaOrdinata.dislivello;
+}
