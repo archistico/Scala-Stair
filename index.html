@@ -13,13 +13,24 @@
 
 <body>
   <div class="container">
-    <h1>MAKE STAIR</h1>
+    <h1 class="mt-3">CREA SCALA</h1>
 
     <div class="mb-3">
-      <label for="stairSelect" class="form-label">Select Stair</label>
+      <h2>Dati</h2>
+      <div class="mb-3">
+        <ul>
+          <li>Rapporto Blondel: 62 - 64</li>
+          <li>Alzata: 15.5 - 18.55 [cm]</li>
+          <li>Pedata: 26.5 - 30.00 [cm]</li>
+          <li>Numero massimo alzate: 20</li>
+        </ul>
+      </div>
+      <label for="stairSelect" class="form-label">Seleziona tra le scale in base a dislivello e parametri</label>
       <select id="stairSelect" class="form-select">
       </select>
-      <a class="btn btn-primary mt-3" id="makeStairButton">Make</a>
+      <div class="d-grid gap-2">
+        <a class="btn btn-primary mt-3" id="makeStairButton">Crea scala</a>
+      </div>
     </div>
     
 
