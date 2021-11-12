@@ -42,7 +42,8 @@ let scala_larghezza = 90;
 
 
 let draw = SVG('svg');
-draw.size(800, 700);
+draw.size(500, 600);
+draw.viewbox(10, 10, 500, 500);
 
 for(c=0; c<numero_pedate; c++) {
     let rect = draw.rect(pedata, scala_larghezza).attr({ fill: '#dddddd', stroke: '#000','stroke-width': 1 }).move(20+pedata*c,20);
