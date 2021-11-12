@@ -30,12 +30,12 @@ makeStairButton.onclick = function (event) {
 
     // TEMPORANEE PER DISEGNO SENZA SELEZIONE
     if(stairSelect.selectedIndex == 0) {
-        alzata = 17.8;
-        pedata = 27.4;
-        numeroAlzate = 3;
+        alzata = 17.0;
+        pedata = 29.0;
+        numeroAlzate = 5;
         rapporto = 63;
-        sviluppo = 54.8;
-        dislivello = 53.4;
+        sviluppo = 116.0;
+        dislivello = 85.0;
         avanzamentoPedata = 2;
         spessoreAlzata = 2;
         spessorePedata = 3;
@@ -45,17 +45,49 @@ makeStairButton.onclick = function (event) {
     // Disegna scala
     let drawTop = SVG('#drawing_top').size('100%', '100%');
     //draw.size();
-    drawTop.viewbox(10, 10, 600, 200);
-
+    drawTop.viewbox(0, 0, 300, 200);
     drawTop.clear();
+
+    let drawPaddingX = 10;
+    let drawPaddingY = 10;
+
+    // Area totale occupazione
+    drawTop
+            .rect(sviluppo+avanzamentoPedata+spessoreAlzata, larghezzaScala)
+            .attr({ fill: '#dddddd', stroke: '#666666','stroke-width': 0, 'fill-opacity': 1 })
+            .move(drawPaddingX, drawPaddingY)
+            .back();
     
-    for(let c=0; c<numeroAlzate-1; c++) {
-        let line = drawTop.line(0, 0, 0, larghezzaScala).move(20+avanzamentoPedata+pedata*c,20)
-            line.stroke({ color: '#666666', width: 1, linecap: 'round', dasharray: '3,3' })
-        let rect = drawTop.rect(pedata, larghezzaScala).attr({ fill: '#dddddd', stroke: '#000','stroke-width': 1 }).move(20+pedata*c,20).back();
-        if(c==numeroAlzate-1) {
-            let rect = drawTop.rect(pedata, larghezzaScala).attr({ fill: '#dddddd', stroke: '#000','stroke-width': 1 }).move(20+pedata*c,20).back();
-        }
+    // Linee orizzontali sopra e sotto area occupazione
+    drawTop
+        .line(0, 0, sviluppo+avanzamentoPedata+spessoreAlzata, 0)
+        .move(drawPaddingX, drawPaddingY)
+        .stroke({ color: '#666666', width: 0.5 });
+    drawTop
+        .line(0, 0, sviluppo+avanzamentoPedata+spessoreAlzata, 0)
+        .move(drawPaddingX, drawPaddingY+larghezzaScala)
+        .stroke({ color: '#666666', width: 0.5 });
+
+    for(let c=0; c<numeroAlzate; c++) {
+        // Linea sx pedata
+        drawTop
+            .line(0, 0, 0, larghezzaScala)
+            .move(drawPaddingX+pedata*c, drawPaddingY)
+            .stroke({ color: '#666666', width: 0.5 });
+
+        // Linea dx pedata
+        drawTop
+            .line(0, 0, 0, larghezzaScala)
+            .move(drawPaddingX+pedata*c+avanzamentoPedata+spessoreAlzata, drawPaddingY)
+            .stroke({ color: '#666666', width: 0.5, dasharray: '3,3' });
+        
+        // Linea sx alzata
+        drawTop
+            .line(0, 0, 0, larghezzaScala)
+            .move(drawPaddingX+pedata*c+avanzamentoPedata, drawPaddingY)
+            .stroke({ color: '#666666', width: 0.5, dasharray: '3,3' });
+
+        // Freccia salita scala
     }
 
     let drawFront = SVG('#drawing_front').size('100%', '100%');
