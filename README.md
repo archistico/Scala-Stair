@@ -8,4 +8,4 @@
     - Pedate: misure, numero, superficie
 4) Possibile download della scala disegnata in formato svg
 
-![screenshot](https://github.com/archistico/Scala-Stair/blob/main/screenshot/screenshot-scala-stair.png?raw=true) 
+![screenshot](https://github.com/archistico/Scala-Stair/blob/master/screenshot/screenshot-scala-stair.png?raw=true) 
