@@ -1,5 +1,9 @@
 import { getDati } from './scala.js';
 
+// TODO: correggere calcolo sviluppo con avanzamenti
+// TODO: mettere scritte quote, freccia scala top
+// TODO: calcolo delle superfici per alzate e pedate
+
 let stairSelect = document.getElementById('stairSelect');
 
 let dati = getDati();
@@ -12,8 +16,6 @@ let drawTop = SVG('#drawing_top').size('100%', '100%');
 let drawFront = SVG('#drawing_front').size('100%', '100%').scale('1', '-1');
     drawFront.viewbox(0, 0, 550, 200);
     drawFront.clear();
-
-
 
 getDati().forEach((scala, index) => {
     let option = document.createElement("option");
