@@ -20,29 +20,30 @@
         <h3>DATI DI BASE</h3>
         <p>Viene utilizzato il rapporto di Blondel per quanto riguarda il rapporto tra alzata e pedata (2a + p = tra 62
           e 64 cm). <br>
-          Le alzate vengono considerate tra quelle di utilizzo civile e varia da 15.5 a 18.55 cm, per massimo 20 scalini. La pedata varia tra i 26.5 - 30.00 cm. 
+          Le alzate vengono considerate tra quelle di utilizzo civile e varia da 15.5 a 18.55 cm, per massimo 20
+          scalini. La pedata varia tra i 26.5 - 30.00 cm.
         </p>
       </div>
 
       <div class="row mb-3">
         <h3>IMPOSTA I PARAMETRI PER CREARE LA LISTA DELLE SCALE DISPONIBILI</h3>
-        <div class="col">
+        <div class="col-md">
           <label for="avanzamentoPedataInput" class="form-label">Avanzamento Pedata [cm]</label>
           <input type="number" class="form-control" min="0" max="30" value=2 id="avanzamentoPedataInput">
         </div>
-        <div class="col">
+        <div class="col-md">
           <label for="spessorePedata" class="form-label">Spessore Pedata [cm]</label>
           <input type="number" class="form-control" min="0" max="30" value=4 id="spessorePedata">
         </div>
-        <div class="col">
+        <div class="col-md">
           <label for="spessoreAlzata" class="form-label">Spessore Alzata [cm]</label>
           <input type="number" class="form-control" min="0" max="30" value=2 id="spessoreAlzata">
         </div>
-        <div class="col">
+        <div class="col-md">
           <label for="larghezzaScala" class="form-label">Larghezza scala [cm]</label>
           <input type="number" class="form-control" min="30" max="200" value=100 id="larghezzaScala">
         </div>
-        <div class="col">
+        <div class="col-md">
           <label for="dislivelloInput" class="form-label">Dislivello [cm]</label>
           <input type="number" class="form-control" min="15" max="370" value=200 id="dislivelloInput">
         </div>
@@ -54,10 +55,16 @@
 
     </div>
 
+    <div class="d-grid gap-2 col-3 mx-auto">
+      <button type="button" class="btn btn-primary" id="downloadProspettoButton">DOWNLOAD SVG PROSPETTO</button>
+      <button type="button" class="btn btn-primary" id="downloadPiantaButton">DOWNLOAD SVG PIANTA</button>
+    </div>
 
     <!-- DISEGNO SCALA -->
     <svg id="drawing_front"></svg>
     <svg id="drawing_top"></svg>
+
+
 
   </div>
 

@@ -16,12 +16,12 @@ let dati = getDati();
 
 // Collegamento con SVG
 let drawTop = SVG('#drawing_top').size('100%', '100%');
-    drawTop.viewbox(0, 0, 550, 200);
-    drawTop.clear();
+drawTop.viewbox(0, 0, 550, 200);
+drawTop.clear();
 
 let drawFront = SVG('#drawing_front').size('100%', '100%').scale('1', '-1');
-    drawFront.viewbox(0, 0, 550, 200);
-    drawFront.clear();
+drawFront.viewbox(0, 0, 550, 200);
+drawFront.clear();
 
 getDati().forEach((scala, index) => {
     let option = document.createElement("option");
@@ -60,13 +60,13 @@ drawStairTop(drawTop, alzata, pedata, numeroAlzate, rapporto, sviluppo, dislivel
 
 // -------------------- TOP -------------------------------------
 function drawStairTop(draw, alzata, pedata, numeroAlzate, rapporto, sviluppo, dislivello, avanzamentoPedata, spessoreAlzata, spessorePedata, larghezzaScala) {
-    
+
     draw.clear();
 
     let drawPaddingX = 10;
     let drawPaddingY = 3;
 
-    draw.viewbox(0, 0, drawPaddingX*2+sviluppo, drawPaddingY*2+larghezzaScala)
+    draw.viewbox(0, 0, drawPaddingX * 2 + sviluppo, drawPaddingY * 2 + larghezzaScala)
 
     // Area totale occupazione
     draw
@@ -118,7 +118,7 @@ function drawStairFront(draw, alzata, pedata, numeroAlzate, rapporto, sviluppo, 
     let drawPaddingX = 10;
     let drawPaddingY = 3;
 
-    draw.viewbox(0, 0, drawPaddingX*2+sviluppo, drawPaddingY*2+dislivello)
+    draw.viewbox(0, 0, drawPaddingX * 2 + sviluppo, drawPaddingY * 2 + dislivello)
 
     for (let c = 0; c < numeroAlzate; c++) {
         // Alzata
@@ -128,33 +128,55 @@ function drawStairFront(draw, alzata, pedata, numeroAlzate, rapporto, sviluppo, 
             .attr({ fill: '#dddddd', stroke: '#666666', 'stroke-width': 0.5, 'fill-opacity': 0.5 });
 
         // Se ultima pedata
-        if(c == numeroAlzate -1) {
+        if (c == numeroAlzate - 1) {
             draw
                 .rect(avanzamentoPedata + spessoreAlzata, spessorePedata)
-                .move(drawPaddingX + pedata * c, drawPaddingY + alzata * (c+1) - spessorePedata)
+                .move(drawPaddingX + pedata * c, drawPaddingY + alzata * (c + 1) - spessorePedata)
                 .attr({ fill: '#dddddd', stroke: '#666666', 'stroke-width': 0.5, 'fill-opacity': 0.5 });
         } else {
             // Pedata
             draw
                 .rect(pedata + avanzamentoPedata + spessoreAlzata, spessorePedata)
-                .move(drawPaddingX + pedata * c, drawPaddingY + alzata * (c+1) - spessorePedata)
+                .move(drawPaddingX + pedata * c, drawPaddingY + alzata * (c + 1) - spessorePedata)
                 .attr({ fill: '#dddddd', stroke: '#666666', 'stroke-width': 0.5, 'fill-opacity': 0.5 });
         }
     }
 
     // Linee dislivello alta
     draw
-        .line(0, 0, pedata * (numeroAlzate -1) + avanzamentoPedata + spessoreAlzata, 0)
+        .line(0, 0, pedata * (numeroAlzate - 1) + avanzamentoPedata + spessoreAlzata, 0)
         .move(drawPaddingX, drawPaddingY + dislivello)
         .stroke({ color: '#FF0000', width: 0.2, dasharray: '1,1' });
 
     // Linee dislivello bassa
     draw
-        .line(0, 0, pedata * (numeroAlzate -1) + avanzamentoPedata + spessoreAlzata, 0)
+        .line(0, 0, pedata * (numeroAlzate - 1) + avanzamentoPedata + spessoreAlzata, 0)
         .move(drawPaddingX, drawPaddingY)
         .stroke({ color: '#FF0000', width: 0.2, dasharray: '1,1' });
-    
-    
+
+
 
     // Scritte
+}
+
+let downloadProspettoButton = document.getElementById('downloadProspettoButton');
+let downloadPiantaButton = document.getElementById('downloadPiantaButton');
+
+downloadProspettoButton.onclick = () => {
+    downloadSVG("drawing_front", "scala-prospetto.svg");
+};
+
+downloadPiantaButton.onclick = () => {
+    downloadSVG("drawing_top", "scala-pianta.svg");
+};
+
+function downloadSVG(idelement, filename) {
+    const svg = document.getElementById(idelement).outerHTML;
+    const blob = new Blob([svg.toString()]);
+
+    const element = document.createElement("a");
+    element.download = filename;
+    element.href = window.URL.createObjectURL(blob);
+    element.click();
+    element.remove();
 }
