@@ -3,8 +3,14 @@ import { getDati } from './scala.js';
 // TODO: correggere calcolo sviluppo con avanzamenti
 // TODO: mettere scritte quote, freccia scala top
 // TODO: calcolo delle superfici per alzate e pedate
+// TODO: attenzione che avanzamento cambia la scala nel calcolo
 
 let stairSelect = document.getElementById('stairSelect');
+
+let dislivelloInput = document.getElementById('dislivelloInput');
+dislivelloInput.onchange = () => {
+    console.log("cambio dislivello " + dislivelloInput.value);
+};
 
 let dati = getDati();
 
@@ -19,7 +25,7 @@ let drawFront = SVG('#drawing_front').size('100%', '100%').scale('1', '-1');
 
 getDati().forEach((scala, index) => {
     let option = document.createElement("option");
-    option.text = "Dislivello: " + scala.dislivello.toFixed(1) + " cm | Alzata: " + scala.alzata.toFixed(1) + " cm | Pedata: " + scala.pedata.toFixed(1) + " cm | Numero alzate: " + scala.numeroAlzate + " | Sviluppo: " + scala.sviluppo.toFixed(1) + " cm | Rapporto: " + scala.rapporto;
+    option.text = "Dislivello: " + scala.dislivello.toFixed(1) + " cm | Alzata: " + scala.alzata.toFixed(1) + " cm | Pedata: " + scala.pedata.toFixed(1) + " cm | Numero alzate: " + scala.numeroAlzate;
     option.value = index
     stairSelect.add(option);
 });
@@ -38,15 +44,15 @@ stairSelect.onchange = function (event) {
     drawStairTop(drawTop, alzata, pedata, numeroAlzate, rapporto, sviluppo, dislivello, avanzamentoPedata, spessoreAlzata, spessorePedata, larghezzaScala);
 }
 
-let larghezzaScala = 40;
+let larghezzaScala = 100;
 let alzata = 17.0;
 let pedata = 29.0;
 let numeroAlzate = 5;
 let rapporto = 63;
 let sviluppo = 116.0;
 let dislivello = 85.0;
-let avanzamentoPedata = 3;
-let spessoreAlzata = 1.5;
+let avanzamentoPedata = 2;
+let spessoreAlzata = 2;
 let spessorePedata = 4;
 
 drawStairFront(drawFront, alzata, pedata, numeroAlzate, rapporto, sviluppo, dislivello, avanzamentoPedata, spessoreAlzata, spessorePedata, larghezzaScala);
@@ -58,7 +64,7 @@ function drawStairTop(draw, alzata, pedata, numeroAlzate, rapporto, sviluppo, di
     draw.clear();
 
     let drawPaddingX = 10;
-    let drawPaddingY = 10;
+    let drawPaddingY = 3;
 
     draw.viewbox(0, 0, drawPaddingX*2+sviluppo, drawPaddingY*2+larghezzaScala)
 
@@ -110,7 +116,7 @@ function drawStairFront(draw, alzata, pedata, numeroAlzate, rapporto, sviluppo, 
     draw.clear();
 
     let drawPaddingX = 10;
-    let drawPaddingY = 10;
+    let drawPaddingY = 3;
 
     draw.viewbox(0, 0, drawPaddingX*2+sviluppo, drawPaddingY*2+dislivello)
 
@@ -136,17 +142,19 @@ function drawStairFront(draw, alzata, pedata, numeroAlzate, rapporto, sviluppo, 
         }
     }
 
-    // Linee dislivello bassa
-    draw
-        .line(0, 0, sviluppo + avanzamentoPedata + spessoreAlzata, 0)
-        .move(drawPaddingX, drawPaddingY)
-        .stroke({ color: '#666666', width: 0.2, dasharray: '3,3' });
-    
     // Linee dislivello alta
     draw
-        .line(0, 0, sviluppo + avanzamentoPedata + spessoreAlzata, 0)
+        .line(0, 0, pedata * (numeroAlzate -1) + avanzamentoPedata + spessoreAlzata, 0)
         .move(drawPaddingX, drawPaddingY + dislivello)
-        .stroke({ color: '#666666', width: 0.2, dasharray: '3,3' });
+        .stroke({ color: '#FF0000', width: 0.2, dasharray: '1,1' });
+
+    // Linee dislivello bassa
+    draw
+        .line(0, 0, pedata * (numeroAlzate -1) + avanzamentoPedata + spessoreAlzata, 0)
+        .move(drawPaddingX, drawPaddingY)
+        .stroke({ color: '#FF0000', width: 0.2, dasharray: '1,1' });
+    
+    
 
     // Scritte
 }
