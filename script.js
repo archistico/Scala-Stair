@@ -1,13 +1,6 @@
 import { getDati } from './scala.js';
 
-// Dati impostati ora qua ma poi verranno messi nel form
-let avanzamentoPedata = 2;
-let larghezzaScala = 100;
-let spessoreAlzata = 2;
-let spessorePedata = 3;
-
-let makeStairButton = document.getElementById('makeStairButton');
-let stairSelect = document.getElementById("stairSelect");
+let stairSelect = document.getElementById('stairSelect');
 
 let dati = getDati();
 
@@ -18,9 +11,9 @@ getDati().forEach((scala, index) => {
     stairSelect.add(option);
 });
 
-makeStairButton.onclick = function (event) {
+stairSelect.onchange = function (event) {
     let scala = dati[stairSelect.selectedIndex];
-    
+
     let alzata = scala.alzata;
     let pedata = scala.pedata;
     let numeroAlzate = scala.numeroAlzate;
@@ -28,20 +21,26 @@ makeStairButton.onclick = function (event) {
     let sviluppo = scala.sviluppo;
     let dislivello = scala.dislivello;
 
-    // TEMPORANEE PER DISEGNO SENZA SELEZIONE
-    if(stairSelect.selectedIndex == 0) {
-        alzata = 17.0;
-        pedata = 29.0;
-        numeroAlzate = 5;
-        rapporto = 63;
-        sviluppo = 116.0;
-        dislivello = 85.0;
-        avanzamentoPedata = 2;
-        spessoreAlzata = 1;
-        spessorePedata = 3;
-    }   
+    drawStairFront(alzata, pedata, numeroAlzate, rapporto, sviluppo, dislivello, avanzamentoPedata, spessoreAlzata, spessorePedata, larghezzaScala);
+    drawStairTop(alzata, pedata, numeroAlzate, rapporto, sviluppo, dislivello, avanzamentoPedata, spessoreAlzata, spessorePedata, larghezzaScala);
+}
 
+let larghezzaScala = 80;
+let alzata = 17.0;
+let pedata = 29.0;
+let numeroAlzate = 5;
+let rapporto = 63;
+let sviluppo = 116.0;
+let dislivello = 85.0;
+let avanzamentoPedata = 2;
+let spessoreAlzata = 1;
+let spessorePedata = 3;
 
+drawStairFront(alzata, pedata, numeroAlzate, rapporto, sviluppo, dislivello, avanzamentoPedata, spessoreAlzata, spessorePedata, larghezzaScala);
+drawStairTop(alzata, pedata, numeroAlzate, rapporto, sviluppo, dislivello, avanzamentoPedata, spessoreAlzata, spessorePedata, larghezzaScala);
+
+// -------------------- TOP -------------------------------------
+function drawStairTop(alzata, pedata, numeroAlzate, rapporto, sviluppo, dislivello, avanzamentoPedata, spessoreAlzata, spessorePedata, larghezzaScala) {
     // Disegna scala
     let drawTop = SVG('#drawing_top').size('100%', '100%');
     //draw.size();
@@ -53,47 +52,61 @@ makeStairButton.onclick = function (event) {
 
     // Area totale occupazione
     drawTop
-            .rect(sviluppo+avanzamentoPedata+spessoreAlzata, larghezzaScala)
-            .attr({ fill: '#dddddd', stroke: '#666666','stroke-width': 0, 'fill-opacity': 1 })
-            .move(drawPaddingX, drawPaddingY)
-            .back();
-    
+        .rect(sviluppo + avanzamentoPedata + spessoreAlzata, larghezzaScala)
+        .attr({ fill: '#dddddd', stroke: '#666666', 'stroke-width': 0, 'fill-opacity': 1 })
+        .move(drawPaddingX, drawPaddingY)
+        .back();
+
     // Linee orizzontali sopra e sotto area occupazione
     drawTop
-        .line(0, 0, sviluppo+avanzamentoPedata+spessoreAlzata, 0)
+        .line(0, 0, sviluppo + avanzamentoPedata + spessoreAlzata, 0)
         .move(drawPaddingX, drawPaddingY)
         .stroke({ color: '#666666', width: 0.5 });
     drawTop
-        .line(0, 0, sviluppo+avanzamentoPedata+spessoreAlzata, 0)
-        .move(drawPaddingX, drawPaddingY+larghezzaScala)
+        .line(0, 0, sviluppo + avanzamentoPedata + spessoreAlzata, 0)
+        .move(drawPaddingX, drawPaddingY + larghezzaScala)
         .stroke({ color: '#666666', width: 0.5 });
 
-    for(let c=0; c<numeroAlzate; c++) {
+    for (let c = 0; c < numeroAlzate; c++) {
         // Linea sx pedata
         drawTop
             .line(0, 0, 0, larghezzaScala)
-            .move(drawPaddingX+pedata*c, drawPaddingY)
+            .move(drawPaddingX + pedata * c, drawPaddingY)
             .stroke({ color: '#666666', width: 0.5 });
 
         // Linea dx pedata
         drawTop
             .line(0, 0, 0, larghezzaScala)
-            .move(drawPaddingX+pedata*c+avanzamentoPedata+spessoreAlzata, drawPaddingY)
+            .move(drawPaddingX + pedata * c + avanzamentoPedata + spessoreAlzata, drawPaddingY)
             .stroke({ color: '#666666', width: 0.5, dasharray: '3,3' });
-        
+
         // Linea sx alzata
         drawTop
             .line(0, 0, 0, larghezzaScala)
-            .move(drawPaddingX+pedata*c+avanzamentoPedata, drawPaddingY)
+            .move(drawPaddingX + pedata * c + avanzamentoPedata, drawPaddingY)
             .stroke({ color: '#666666', width: 0.5, dasharray: '3,3' });
 
         // Freccia salita scala
     }
+}
+
+function drawStairFront(alzata, pedata, numeroAlzate, rapporto, sviluppo, dislivello, avanzamentoPedata, spessoreAlzata, spessorePedata, larghezzaScala) {
+    // -------------------- FRONT -------------------------------------
 
     let drawFront = SVG('#drawing_front').size('100%', '100%');
     //draw.size();
-    drawFront.viewbox(10, 10, 600, 200);
+    drawFront.viewbox(0, 0, 550, 100);
 
     drawFront.clear();
 
+    let drawPaddingX = 10;
+    let drawPaddingY = 10;
+
+    for (let c = 0; c < numeroAlzate; c++) {
+        // Linea sx alzata
+        drawFront
+            .line(0, 0, 0, alzata - spessorePedata)
+            .move(drawPaddingX + pedata * c, drawPaddingY)
+            .stroke({ color: '#666666', width: 0.5 });
+    }
 }
